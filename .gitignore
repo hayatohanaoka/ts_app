@@ -1,0 +1,20 @@
+# Dependencies
+*/node_modules/
+
+# Build outputs
+/build/
+/dist/
+*/build/
+*/dist/
+
+
+# Temporary folders
+tmp/
+temp/
+
+# TypeScript
+*.tsbuildinfo
+
+# Temporary directories
+.temp/
+.tmp/
