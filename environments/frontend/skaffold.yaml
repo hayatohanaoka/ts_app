@@ -19,5 +19,6 @@ manifests:
         setValues:
           replicas: 1
           imagePullPolicy: Never
+          port: 3000
         setValueTemplates:
           image: "react-app:latest"

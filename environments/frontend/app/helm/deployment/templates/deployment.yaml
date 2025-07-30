@@ -19,5 +19,5 @@ spec:
           image: {{ .Values.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.port }}
               name: http-port
