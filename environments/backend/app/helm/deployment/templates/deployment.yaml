@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hono-app
+  labels:
+    app: hono-app
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: hono-app
+  template:
+    metadata:
+      labels:
+        app: hono-app
+    spec:
+      containers:
+        - name: hono-app
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.port }}
+              name: http-port

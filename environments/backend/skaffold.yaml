@@ -1,0 +1,24 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: hono-app
+build:
+  artifacts:
+    - image: hono-app
+      context: ../../backend
+      docker:
+        dockerfile: app/Dockerfile
+  local:
+    push: false
+    useBuildkit: true
+manifests:
+  helm:
+    releases:
+      - name: hono-app
+        chartPath: app/helm/deployment
+        setValues:
+          replicas: 1
+          imagePullPolicy: Never
+          port: 3001
+        setValueTemplates:
+          image: "hono-app:latest"
