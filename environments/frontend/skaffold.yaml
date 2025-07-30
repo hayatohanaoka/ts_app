@@ -1,0 +1,24 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: react-app
+build:
+  artifacts:
+    - image: react-app
+      context: ../../frontend
+      docker:
+        dockerfile: ../environments/frontend/app/Dockerfile
+  local:
+    push: false
+    useBuildkit: true
+manifests:
+  helm:
+    releases:
+      - name: react-app
+        chartPath: app/helm/deployment
+        setValues:
+          replicas: 1
+          imagePullPolicy: Never
+          port: 3000
+        setValueTemplates:
+          image: "react-app:latest"
