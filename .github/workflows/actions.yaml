@@ -1,6 +1,15 @@
 name: ts-app pipeline
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - closed
+      - reopened
 jobs:
   run-frontend-unit-tests:
     runs-on: ubuntu-latest
