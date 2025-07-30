@@ -6,11 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: setup nodejs 24.0.0
-        uses: actions/setup-node@v4
+      - name: run unit tests
+        working-directory: frontend
         with:
           node-version: '24.0.0'
           cache: 'npm'
-      - name: run unit tests
-        working-directory: frontend
         run: npm install && npm run test
