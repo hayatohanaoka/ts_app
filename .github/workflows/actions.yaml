@@ -11,7 +11,6 @@ jobs:
         with:
           node-version: '24.0.0'
           cache: 'npm'
-          cache-dependency-path: ./package-lock.json
       - name: run unit tests
         working-directory: frontend
         run: npm install && npm run test
