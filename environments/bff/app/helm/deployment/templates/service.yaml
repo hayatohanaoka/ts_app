@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nestjs-app-svc
+  name: hono-app-svc
   labels:
-    app: nestjs-app-svc
+    app: hono-app-svc
 spec:
   type: ClusterIP
   ports:
-    - port: 3002
-      name: nestjs-app-port
+    - port: 3001
+      name: hono-app-port
       targetPort: http-port
   selector:
-    app: nestjs-app
+    app: hono-app

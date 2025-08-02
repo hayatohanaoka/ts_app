@@ -3,13 +3,13 @@ WORKDIR /app
 COPY package.json ./
 COPY bun.lock ./
 RUN bun install
-COPY src tsconfig.json tsconfig.build.json ./
+COPY src ./src
 RUN bun run build
 
 FROM oven/bun:slim
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
-COPY package.json bun.lock tsconfig.json tsconfig.build.json ./
+COPY package.json bun.lock ./
 RUN bun install --production
-EXPOSE 3002
+EXPOSE 3001
 CMD ["bun", "run", "start"]

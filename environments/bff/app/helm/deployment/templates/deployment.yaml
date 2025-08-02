@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nestjs-app
+  name: hono-app
   labels:
-    app: nestjs-app
+    app: hono-app
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: nestjs-app
+      app: hono-app
   template:
     metadata:
       labels:
-        app: nestjs-app
+        app: hono-app
     spec:
       containers:
-        - name: nestjs-app
+        - name: hono-app
           image: {{ .Values.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
