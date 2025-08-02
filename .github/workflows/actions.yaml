@@ -22,6 +22,17 @@ jobs:
       - name: run unit tests
         working-directory: frontend
         run: npm install && npm run test
+  run-bff-unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup bun 1.2.2
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.2.2
+      - name: run unit tests
+        working-directory: bff
+        run: bun install && bun run test
   run-backend-unit-tests:
     runs-on: ubuntu-latest
     steps:
