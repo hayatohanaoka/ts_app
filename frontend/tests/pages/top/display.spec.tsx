@@ -1,8 +1,9 @@
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { beforeEach, describe, expect, test } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
 import { Top } from "~/pages/top/page";
+
 
 describe("トップページの表示テスト", () => {
 
@@ -14,7 +15,7 @@ describe("トップページの表示テスト", () => {
 		);
 	})
 
-	describe("検索対象として選択できるアイコンの表示", () => {
+	describe("検索対象として選択できるアイコンの挙動", () => {
 		test("検索対象として選択できるアイコンが複数個表示されている", () => {
 			const icons = screen.getByTestId("tcg-icons").getElementsByTagName("li");
 			expect(icons).toHaveLength(3);
@@ -26,7 +27,7 @@ describe("トップページの表示テスト", () => {
 	
 			expect(icon).toBeInTheDocument();
 			expect(img).toBeInTheDocument();
-			expect(img).toHaveAttribute("src", "/public/logo-ws.png");
+			expect(img).toHaveAttribute("src", "logo-ws.png");
 		});
 		
 		test("遊戯王のアイコンが表示されている", () => {
@@ -35,7 +36,7 @@ describe("トップページの表示テスト", () => {
 	
 			expect(icon).toBeInTheDocument();
 			expect(img).toBeInTheDocument();
-			expect(img).toHaveAttribute("src", "/public/logo-yugioh.png");
+			expect(img).toHaveAttribute("src", "logo-yugioh.png");
 		});
 
 		test("MTGのアイコンが表示されている", () => {
@@ -44,7 +45,7 @@ describe("トップページの表示テスト", () => {
 	
 			expect(icon).toBeInTheDocument();
 			expect(img).toBeInTheDocument();
-			expect(img).toHaveAttribute("src", "/public/logo-mtg.png");
+			expect(img).toHaveAttribute("src", "logo-mtg.png");
 		});
 	})
 
@@ -57,15 +58,68 @@ describe("トップページの表示テスト", () => {
 				expect(screen.getByTestId("search-text")).toBeInTheDocument();
 			}
 		})
+		
+	})
+	
+	describe("検索テキスト入力欄の挙動", () => {
+
+		beforeEach(() => {
+			const icons = screen.getByTestId("tcg-icons").getElementsByTagName("li");
+			fireEvent.click(icons[0]);
+		})
 
 		test("検索テキスト入力欄には、テキストが入力できる", () => {
-			expect(screen.queryByTestId("search-text")).not.toBeInTheDocument();
+			const input = screen.getByTestId("search-text");
+			const expectedText = "test";
+
+			fireEvent.change(input, { target: { value: expectedText } });
+			expect(input).toHaveValue(expectedText);
+		})
+		
+		test("検索対象のアイコンを変更した後でも、入力内容が保持されている", () => {
+			const input = screen.getByTestId("search-text");
+			const expectedText = "test";
+			fireEvent.change(input, { target: { value: expectedText } });
+
+			const icons = screen.getByTestId("tcg-icons").getElementsByTagName("li");
+			fireEvent.click(icons[1]);
+			expect(input).toHaveValue("");
+
+			fireEvent.click(icons[0]);
+			expect(input).toHaveValue(expectedText);
+		})
+	})
+
+	describe("検索フォームの挙動", () => {
+
+		beforeEach(() => {
+			vi.clearAllMocks();
+			
+			vi.mock("../../../action/formSubmitAction", () => ({
+				FormSubmitAction: {
+					execute: vi.fn().mockReturnValue({
+						items: [
+							{ id: 1, price: 1000, linkUrl: "https://example-1.com" },
+							{ id: 2, price: 2000, linkUrl: "https://example-2.com" }
+						]
+					})
+				}
+			}));
 
 			const icons = screen.getByTestId("tcg-icons").getElementsByTagName("li");
 			fireEvent.click(icons[0]);
+		})
+
+		test("検索テキスト入力欄に入力してボタンをクリックすると、検索された内容が表示される", async () => {
 			const input = screen.getByTestId("search-text");
-			fireEvent.change(input, { target: { value: "test" } });
-			expect(input).toHaveValue("test");
+			const expectedText = "test";
+			fireEvent.change(input, { target: { value: expectedText } });
+
+			const button = screen.getByTestId("submit-button");
+			fireEvent.click(button);
+
+			const items = screen.getByTestId("search-items").getElementsByTagName("li");
+			expect(items).toHaveLength(2);
 		})
 	})
 });
