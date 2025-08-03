@@ -56,10 +56,9 @@ describe("共通パーツの表示テスト", () => {
 
   describe("メインコンテンツエリア", () => {
     test("メインコンテンツが表示される", () => {
-      const testContent = "test contents";
       render(
         <Content>
-          <div>{testContent}</div>
+          <div>test contents</div>
         </Content>
       );
 
