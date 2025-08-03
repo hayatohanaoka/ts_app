@@ -11,7 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { Header } from "./common/header";
 import { Footer } from "./common/footer";
-import { Content } from "./common/content";
+import { Main } from "./common/main";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -38,9 +38,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <div className="min-h-screen flex flex-col">
           <Header />
-          <Content>
+          <Main>
             {children}
-          </Content>
+          </Main>
           <Footer />
         </div>
         <ScrollRestoration />

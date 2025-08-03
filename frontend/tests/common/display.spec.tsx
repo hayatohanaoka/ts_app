@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { Content } from "~/common/content";
+import { Main } from "~/common/main";
 import { Footer } from "~/common/footer";
 import { Header } from "~/common/header";
 
@@ -57,15 +57,15 @@ describe("共通パーツの表示テスト", () => {
   describe("メインコンテンツエリア", () => {
     test("メインコンテンツが表示される", () => {
       render(
-        <Content>
+        <Main>
           <div>test contents</div>
-        </Content>
+        </Main>
       );
 
       const main = screen.getByTestId("main-content");
       expect(main).toBeInTheDocument();
 
-      expect(screen.getByText(testContent)).toBeInTheDocument();
+      expect(screen.getByText("test contents")).toBeInTheDocument();
     });
   });
 
