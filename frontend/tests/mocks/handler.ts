@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 
 export const handlers = [
-  http.get('http://localhost:3001/api/v1/summary', ({ request }) => {
+  http.get('http://localhost:3001/api/v1/card-prices', ({ request }) => {
     const url = new URL(request.url)
     const q = url.searchParams.get('q')
     if (q === "test") {

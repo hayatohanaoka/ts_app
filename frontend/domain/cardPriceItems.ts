@@ -1,8 +1,8 @@
-export interface CartPriceItems {
-    items: CartPriceItem[];
+export interface CartPrices {
+    items: CartPrice[];
 }
 
-export interface CartPriceItem {
+export interface CartPrice {
     id: number;
     price: number;
     linkUrl: string;
