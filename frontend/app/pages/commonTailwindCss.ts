@@ -1,0 +1,10 @@
+export const flexCenter = "flex justify-center items-center";
+export const cardBase = "w-64 h-64 overflow-hidden rounded-2xl border transition-colors cursor-pointer";
+export const smallCardBase = "w-64 h-16 overflow-hidden rounded-2xl border transition-colors cursor-pointer flex justify-center items-center";
+export const cardSelected = "bg-blue-100 border-blue-400 shadow-lg";
+export const cardDefault = "border-gray-200 hover:border-gray-400 hover:bg-gray-50";
+export const textareaClass = "w-150 p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+export const buttonBase = "px-6 py-3 rounded-lg transition-colors h-fit";
+export const buttonPrimary = "bg-blue-500 text-white hover:bg-blue-600";
+export const buttonDisabled = "disabled:bg-gray-400 disabled:cursor-not-allowed";
+export const cardText = "text-lg font-semibold text-indigo-300 hover:text-indigo-100 transition-colors underline decoration-dotted underline-offset-4";
